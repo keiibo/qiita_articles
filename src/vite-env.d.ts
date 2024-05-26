@@ -2,6 +2,7 @@
 
 interface ImportMetaEnv {
   readonly VITE_REACT_APP_QIITA_API_TOKEN: string;
+  readonly VITE_BACKEND_URL: string;
 }
 
 interface ImportMeta {

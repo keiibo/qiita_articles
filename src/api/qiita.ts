@@ -41,18 +41,25 @@ export type TPostReq = {
   };
 };
 export const postFavoriteArticle = async (req: TPostReq) => {
-  const response = await axios.post(`http://localhost:3000/favorites`, req);
+  const response = await axios.post(
+    `${import.meta.env.VITE_BACKEND_URL}/favorites`,
+    req
+  );
   return response;
 };
 
 export const getFavoriteArticle = async (): Promise<TArticle[]> => {
-  const response = await axios.get(`http://localhost:3000/favorites`);
+  const response = await axios.get(
+    `${import.meta.env.VITE_BACKEND_URL}/favorites`
+  );
   return response.data;
 };
 
 export const deleteFavoriteArticle = async (
   id: string
 ): Promise<TArticle[]> => {
-  const response = await axios.delete(`http://localhost:3000/favorites/${id}`);
+  const response = await axios.delete(
+    `${import.meta.env.VITE_BACKEND_URL}/favorites/${id}`
+  );
   return response.data;
 };
