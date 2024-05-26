@@ -4,11 +4,20 @@ import { TArticle, TTag } from "../types/TArticle";
 export type TGetReq = {
   perPage?: number; //１ページあたりの要素数(20~100,20)
   page?: number; //何ページ目か(1~100,1)
+  query?: string;
 };
 
 export const get = async (req: TGetReq) => {
+  // クエリ文字列を構築
+  let queryString = `per_page=${req.perPage}`;
+  if (req.page) {
+    queryString += `&page=${req.page}`;
+  }
+  if (req.query) {
+    queryString += `&query=${encodeURIComponent(req.query)}`;
+  }
   const response = await axios.get(
-    `https://qiita.com/api/v2/items?per_page=${req.perPage}`,
+    `https://qiita.com/api/v2/items?${queryString}`,
     {
       headers: {
         Authorization: `Bearer ${
