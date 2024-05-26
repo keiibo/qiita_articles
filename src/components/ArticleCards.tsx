@@ -20,6 +20,10 @@ export const ArticleCards = ({
     setArticlesState(articles);
   }, [articles]);
 
+  if (articlesState.length === 0) {
+    return <div>お気に入りがありません</div>;
+  }
+
   return (
     <StyledArticleCardsContainer>
       {articlesState &&
