@@ -4,7 +4,7 @@ import { Home } from "./Home";
 export const App = (): React.JSX.Element => {
   return (
     <AppContainer>
-      <StyledTitle>Recommend</StyledTitle>
+      <StyledTitle>Tech Articles</StyledTitle>
       <Home />
     </AppContainer>
   );

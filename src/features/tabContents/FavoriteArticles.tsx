@@ -16,7 +16,11 @@ export const FavoriteArticles = ({
     : [];
   return (
     <StyledContainer>
-      <ArticleCards articles={reversedArticles} hasDelete />
+      <ArticleCards
+        articles={reversedArticles}
+        hasDelete
+        loadingText="まだお気に入り記事がありません😢"
+      />
     </StyledContainer>
   );
 };

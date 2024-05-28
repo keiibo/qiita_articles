@@ -48,16 +48,6 @@ export const Home = (): React.JSX.Element => {
       children: <QiitaSearchPage></QiitaSearchPage>,
     },
     {
-      key: "3",
-      label: "a",
-      children: "afa",
-    },
-    {
-      key: "4",
-      label: "a",
-      children: "Content of Tab Pane 3",
-    },
-    {
       key: "5",
       label: "まとめて検索",
       children: "Content of Tab Pane 3",

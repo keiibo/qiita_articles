@@ -7,12 +7,14 @@ type TProps = {
   articles: TArticle[];
   hasDelete?: boolean;
   hasRate?: boolean;
+  loadingText: string;
 };
 
 export const ArticleCards = ({
   articles,
   hasDelete = false,
   hasRate = false,
+  loadingText,
 }: TProps): React.JSX.Element => {
   const [articlesState, setArticlesState] = useState<TArticle[]>([]);
 
@@ -21,7 +23,7 @@ export const ArticleCards = ({
   }, [articles]);
 
   if (articlesState.length === 0) {
-    return <div>お気に入りがありません</div>;
+    return <StyledLoadingText>{loadingText}</StyledLoadingText>;
   }
 
   return (
@@ -45,4 +47,9 @@ const StyledArticleCardsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+`;
+
+const StyledLoadingText = styled.div`
+  font-size: 24px;
+  margin: 12px;
 `;
