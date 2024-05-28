@@ -10,7 +10,11 @@ type TProps = {
 export const QiitaTimeLine = ({ articles }: TProps): React.JSX.Element => {
   return (
     <StyledContainer>
-      <ArticleCards articles={articles ? articles : []} hasRate />
+      <ArticleCards
+        articles={articles ? articles : []}
+        hasRate
+        loadingText=""
+      />
     </StyledContainer>
   );
 };
