@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { TArticle } from "../types/TArticle";
 import { Badge, Card } from "antd";
 import ReactMarkdown from "react-markdown";
 import styled from "styled-components";
 import { CardTitle } from "./CardTitle";
 import { DeleteOutlined, StarFilled, StarOutlined } from "@ant-design/icons";
-import {
-  deleteFavoriteArticle,
-  postFavoriteArticle,
-  TPostReq,
-} from "../api/qiita";
+
 import { useMutation } from "react-query";
+import { TPostReq } from "../../feature/api/type/request/TFavoritePostReq";
+import {
+  postFavoriteArticle,
+  deleteFavoriteArticle,
+} from "../../feature/api/qiita";
+import { TArticle } from "../../types/TArticle";
 
 type TProps = {
   articlesState: TArticle[];

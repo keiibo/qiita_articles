@@ -8,6 +8,7 @@ import { styled } from "styled-components";
 import { Search } from "./feature/search/Search";
 import { get, getFavoriteArticle } from "./feature/api/qiita";
 import { TGetReq } from "./feature/api/type/request/TQiitaGetReq";
+import { Loading } from "./component/loading/Loading";
 
 export const Home = (): React.JSX.Element => {
   // お気に入り記事の取得
@@ -27,7 +28,7 @@ export const Home = (): React.JSX.Element => {
     } as TGetReq)
   );
 
-  if (qiitaLoading || favoriteLoading) return <div>Loading...</div>;
+  if (qiitaLoading || favoriteLoading) return <Loading />;
 
   const handleTabChange = (key: string): void => {
     if (key == "6") {
