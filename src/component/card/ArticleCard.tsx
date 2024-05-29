@@ -12,6 +12,7 @@ import {
   deleteFavoriteArticle,
 } from "../../feature/api/qiita";
 import { TArticle } from "../../types/TArticle";
+import { Color } from "../../constant/Color";
 
 type TProps = {
   articlesState: TArticle[];
@@ -29,7 +30,7 @@ export const ArticleCard = ({
   hasDelete = false,
 }: TProps): React.JSX.Element => {
   const text = "Qiita";
-  const color = "#55C500";
+  const color = Color.QIITA_GREEN;
 
   const postMutation = useMutation(postFavoriteArticle);
   const deleteMutation = useMutation(deleteFavoriteArticle);
