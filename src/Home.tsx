@@ -1,11 +1,13 @@
 import React from "react";
-import { get, getFavoriteArticle, TGetReq } from "./api/qiita";
+
 import { Tabs, TabsProps } from "antd";
 import { useQuery } from "react-query";
-import { FavoriteArticles } from "./features/tabContents/FavoriteArticles";
-import { QiitaTimeLine } from "./features/tabContents/QiitaTimeLine";
+import { Favorite } from "./feature/favorites/Favorites";
+import { Timeline } from "./feature/timeline/Timeline";
 import { styled } from "styled-components";
-import { QiitaSearchPage } from "./features/tabContents/QiitaSearchPage";
+import { Search } from "./feature/search/Search";
+import { get, getFavoriteArticle } from "./feature/api/qiita";
+import { TGetReq } from "./feature/api/type/request/TQiitaGetReq";
 
 export const Home = (): React.JSX.Element => {
   // お気に入り記事の取得
@@ -40,17 +42,17 @@ export const Home = (): React.JSX.Element => {
     {
       key: "1",
       label: "Qiita新着",
-      children: <QiitaTimeLine articles={qiitaNewArticles?.data} />,
+      children: <Timeline articles={qiitaNewArticles?.data} />,
     },
     {
       key: "2",
       label: "Qiita検索",
-      children: <QiitaSearchPage></QiitaSearchPage>,
+      children: <Search></Search>,
     },
     {
       key: "6",
       label: "お気に入り記事",
-      children: <FavoriteArticles favoriteArticles={favoriteArticles} />,
+      children: <Favorite favoriteArticles={favoriteArticles} />,
     },
   ];
   return (

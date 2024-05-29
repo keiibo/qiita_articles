@@ -1,12 +1,11 @@
 import axios from "axios";
-import { TArticle, TTag } from "../types/TArticle";
+import { TArticle } from "../../types/TArticle";
+import { TGetReq } from "./type/request/TQiitaGetReq";
+import { TPostReq } from "./type/request/TFavoritePostReq";
 
-export type TGetReq = {
-  perPage?: number; //１ページあたりの要素数(20~100,20)
-  page?: number; //何ページ目か(1~100,1)
-  query?: string;
-};
-
+/**
+ * qiitaから記事を取得するGET
+ */
 export const get = async (req: TGetReq) => {
   // クエリ文字列を構築
   let queryString = `per_page=${req.perPage}`;
@@ -29,17 +28,9 @@ export const get = async (req: TGetReq) => {
   return response;
 };
 
-export type TPostReq = {
-  id: string | null | undefined;
-  title: string | null | undefined;
-  url: string | null | undefined;
-  tags: TTag[] | null | undefined;
-  body: string | null | undefined;
-  user: {
-    name: string | null | undefined;
-    profile_image_url: string;
-  };
-};
+/**
+ * お気に入り記事をPOST
+ */
 export const postFavoriteArticle = async (req: TPostReq) => {
   const response = await axios.post(
     `${import.meta.env.VITE_BACKEND_URL}/favorites`,
@@ -48,6 +39,9 @@ export const postFavoriteArticle = async (req: TPostReq) => {
   return response;
 };
 
+/**
+ * 保存したお気に入り記事を取得するGET
+ */
 export const getFavoriteArticle = async (): Promise<TArticle[]> => {
   const response = await axios.get(
     `${import.meta.env.VITE_BACKEND_URL}/favorites`
@@ -55,6 +49,9 @@ export const getFavoriteArticle = async (): Promise<TArticle[]> => {
   return response.data;
 };
 
+/**
+ * お気に入りから削除するDELETE
+ */
 export const deleteFavoriteArticle = async (
   id: string
 ): Promise<TArticle[]> => {

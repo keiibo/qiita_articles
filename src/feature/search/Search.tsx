@@ -1,11 +1,12 @@
 import Input from "antd/es/input/Input";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { get, TGetReq } from "../../api/qiita";
-import { ArticleCards } from "../../components/ArticleCards";
+import { get } from "../api/qiita";
+import { ArticleCards } from "../../component/card/ArticleCards";
 import { useDebouncedCallback } from "use-debounce";
+import { TGetReq } from "../api/type/request/TQiitaGetReq";
 
-export const QiitaSearchPage = (): React.JSX.Element => {
+export const Search = (): React.JSX.Element => {
   const [searchResultArticles, setSearchResultArticles] = useState([]);
 
   // デバウンスされた検索関数

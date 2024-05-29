@@ -1,7 +1,7 @@
 import { Avatar, Tag } from "antd";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { TTag, TUser } from "../types/TArticle";
+import { TTag, TUser } from "../../types/TArticle";
 
 type TProps = {
   title: string;

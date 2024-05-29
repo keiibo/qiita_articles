@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ArticleCard } from "./ArticleCard";
-import { TArticle } from "../types/TArticle";
+import { TArticle } from "../../types/TArticle";
 import { styled } from "styled-components";
 
 type TProps = {
