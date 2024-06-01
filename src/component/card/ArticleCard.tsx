@@ -139,12 +139,20 @@ export const ArticleCard = ({
 };
 
 const StyledCard = styled(Card)`
-  width: 800px;
+  width: 100%;
+  max-width: 320px;
   .ant-card-head-title {
-    font-size: 18px;
+    font-size: 16px;
     padding: 8px;
     text-align: start;
     white-space: normal; // タイトルが折り返されるように設定
+  }
+  // 画面幅が 600px 以上の場合のスタイル
+  @media (min-width: 600px) {
+    max-width: 800px;
+    .ant-card-head-title {
+      font-size: 18px; // タブレットとデスクトップでフォントサイズを大きくする
+    }
   }
 `;
 
