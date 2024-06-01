@@ -1,11 +1,27 @@
 import styled from "styled-components";
-import { Home } from "./Home";
+import { AppRouter } from "./route/Router";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUser } from "./feature/auth/slice/authSlice";
 
 export const App = (): React.JSX.Element => {
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const handleLoginSuccess = () => {
+    setLoggedIn(true);
+  };
+  const user = useSelector(selectUser);
+
   return (
     <AppContainer>
-      <StyledTitle>Tech Articles</StyledTitle>
-      <Home />
+      <StyledTitle>Tech Article</StyledTitle>
+      <div>
+        {user ? (
+          <h4>おかえりなさい {user.username}</h4>
+        ) : (
+          <h1>ログインしてないよ</h1>
+        )}
+      </div>
+      <AppRouter isLoggedIn={isLoggedIn} onLoginSuccess={handleLoginSuccess} />
     </AppContainer>
   );
 };

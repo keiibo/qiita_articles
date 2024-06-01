@@ -6,13 +6,16 @@ import { CardTitle } from "./CardTitle";
 import { DeleteOutlined, StarFilled, StarOutlined } from "@ant-design/icons";
 
 import { useMutation } from "react-query";
-import { TPostReq } from "../../feature/api/type/request/TFavoritePostReq";
-import {
-  postFavoriteArticle,
-  deleteFavoriteArticle,
-} from "../../feature/api/qiita";
+
 import { TArticle } from "../../types/TArticle";
 import { Color } from "../../constant/Color";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../feature/auth/slice/authSlice";
+import {
+  deleteFavoriteArticle,
+  postFavoriteArticle,
+} from "../../feature/favorites/api/favorite";
+import { TPostReq } from "../../feature/favorites/api/type/TFavoritePostReq";
 
 type TProps = {
   articlesState: TArticle[];
@@ -30,7 +33,8 @@ export const ArticleCard = ({
   hasDelete = false,
 }: TProps): React.JSX.Element => {
   const text = "Qiita";
-  const color = Color.QIITA_GREEN;
+
+  const loginData = useSelector(selectUser);
 
   const postMutation = useMutation(postFavoriteArticle);
   const deleteMutation = useMutation(deleteFavoriteArticle);
@@ -42,29 +46,29 @@ export const ArticleCard = ({
     setIsFavorite(!isFavorite);
     if (!isFavorite) {
       // お気に入り時にpostをmutate
-      console.log(article);
-
       const req: TPostReq = {
         id: article.id,
         title: article.title,
         url: article.url,
         body: article.body,
         tags: article.tags,
-
         user: {
           name: article.user.name,
           profile_image_url: article.user.profile_image_url,
         },
       };
 
-      postMutation.mutate(req, {
-        onSuccess: (data) => {
-          console.log("Article posted successfully:", data);
-        },
-        onError: (error) => {
-          console.error("Failed to post article:", error);
-        },
-      });
+      postMutation.mutate(
+        { req, id: loginData ? loginData.userId : null },
+        {
+          onSuccess: (data) => {
+            console.log("Article posted successfully:", data);
+          },
+          onError: (error) => {
+            console.error("Failed to post article:", error);
+          },
+        }
+      );
     } else {
       deleteMutation.mutate(article.id, {
         onSuccess: (data) => {
@@ -93,7 +97,7 @@ export const ArticleCard = ({
   };
 
   return (
-    <Badge.Ribbon text={text} color={color}>
+    <Badge.Ribbon text={text} color={Color.QIITA_GREEN}>
       <StyledCard
         key={article.id}
         title={

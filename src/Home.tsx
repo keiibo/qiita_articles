@@ -6,17 +6,27 @@ import { Favorite } from "./feature/favorites/Favorites";
 import { Timeline } from "./feature/timeline/Timeline";
 import { styled } from "styled-components";
 import { Search } from "./feature/search/Search";
-import { get, getFavoriteArticle } from "./feature/api/qiita";
+import { get } from "./feature/api/qiita";
 import { TGetReq } from "./feature/api/type/request/TQiitaGetReq";
 import { Loading } from "./component/loading/Loading";
+import { getFavoriteArticle } from "./feature/favorites/api/favorite";
+import { useSelector } from "react-redux";
+import { selectUser } from "./feature/auth/slice/authSlice";
 
 export const Home = (): React.JSX.Element => {
+  const user = useSelector(selectUser);
   // お気に入り記事の取得
   const {
-    data: favoriteArticles,
+    data,
     refetch,
     isLoading: favoriteLoading,
-  } = useQuery("favorites", getFavoriteArticle);
+  } = useQuery("favorites", () =>
+    getFavoriteArticle(user ? user.userId : null)
+  );
+
+  const favoriteArticles = data?.map((d) => {
+    return d.article;
+  });
 
   const {
     data: qiitaNewArticles,
