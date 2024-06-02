@@ -1,18 +1,32 @@
 import React from "react";
-import { TLoginUser } from "../../feature/auth/slice/authSlice";
+import { logoutUser, TLoginUser } from "../../feature/auth/slice/authSlice";
 import { styled } from "styled-components";
+import { LogoutOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
+import { useDispatch } from "react-redux";
 
 type TProps = {
   user: TLoginUser | null;
+  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const Header = ({ user }: TProps): React.JSX.Element => {
+export const Header = ({ user, setLoggedIn }: TProps): React.JSX.Element => {
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    setLoggedIn(false);
+    dispatch(logoutUser());
+  };
   return (
     <StyledHeader>
       <StyledTitle>Tech Article</StyledTitle>
       <StyledUserData>
         {user ? (
-          <div>おかえりなさい、{user.username}さん</div>
+          <StyledUserContainer>
+            <div>おかえりなさい、{user.username}さん</div>
+            <Tooltip title="クリックでログアウト">
+              <LogoutOutlined onClick={() => handleLogout()} />
+            </Tooltip>
+          </StyledUserContainer>
         ) : (
           <div>未ログイン</div>
         )}
@@ -28,6 +42,11 @@ const StyledHeader = styled.header`
     position: relative;
     margin: 0 24px;
   }
+`;
+
+const StyledUserContainer = styled.div`
+  display: flex;
+  gap: 4px;
 `;
 
 const StyledTitle = styled.h1`

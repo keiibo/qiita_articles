@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, Modal, notification } from "antd";
 import FormItem from "antd/es/form/FormItem";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,7 @@ type TProps = {
 export const Login = ({ onLoginSuccess }: TProps): React.JSX.Element => {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -43,6 +44,7 @@ export const Login = ({ onLoginSuccess }: TProps): React.JSX.Element => {
   };
   return (
     <>
+      {contextHolder}
       <Modal
         title="ログイン"
         open={isModalOpen}
@@ -103,7 +105,8 @@ export const Login = ({ onLoginSuccess }: TProps): React.JSX.Element => {
         <CreateModal
           isOpen={isCreateModalOpen}
           setIsCreateModalOpen={setIsCreateModalOpen}
-        ></CreateModal>
+          api={api}
+        />
       )}
     </>
   );

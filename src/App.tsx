@@ -14,7 +14,7 @@ export const App = (): React.JSX.Element => {
 
   return (
     <AppContainer>
-      <Header user={user} />
+      <Header user={user} setLoggedIn={setLoggedIn} />
       <AppRouter isLoggedIn={isLoggedIn} onLoginSuccess={handleLoginSuccess} />
     </AppContainer>
   );

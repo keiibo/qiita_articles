@@ -5,16 +5,29 @@ import styled from "styled-components";
 import { createAccount } from "./api/auth";
 import { TCreateAccountReq } from "./api/type/TCreateAccountReq";
 import { useMutation } from "react-query";
+import {
+  NotificationInstance,
+  NotificationPlacement,
+} from "antd/es/notification/interface";
 
 type TProps = {
   isOpen: boolean;
   setIsCreateModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  api: NotificationInstance;
 };
 
 export const CreateModal = ({
   isOpen,
   setIsCreateModalOpen,
+  api,
 }: TProps): React.JSX.Element => {
+  const openNotification = (placement: NotificationPlacement) => {
+    api.info({
+      message: `ユーザー登録ができました！`,
+      description: "今すぐログインして Tech Article を楽しもう",
+      placement,
+    });
+  };
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const postMutation = useMutation(createAccount);
@@ -24,11 +37,10 @@ export const CreateModal = ({
       username,
       password,
     };
-    console.log(req);
-
     postMutation.mutate(req, {
-      onSuccess: (data) => {
-        console.log("Article posted successfully:", data);
+      onSuccess: () => {
+        openNotification("top");
+        setIsCreateModalOpen(false);
       },
       onError: (error) => {
         console.error("Failed to post article:", error);
