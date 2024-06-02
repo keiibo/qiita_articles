@@ -34,7 +34,7 @@ export const Home = (): React.JSX.Element => {
     isLoading: qiitaLoading,
   } = useQuery("articles", () =>
     get({
-      perPage: 20,
+      perPage: 50,
     } as TGetReq)
   );
 

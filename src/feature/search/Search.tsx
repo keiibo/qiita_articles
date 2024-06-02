@@ -13,7 +13,7 @@ export const Search = (): React.JSX.Element => {
   const debouncedSearch = useDebouncedCallback(
     async (value) => {
       const req: TGetReq = {
-        perPage: 20,
+        perPage: 50,
         query: value,
       };
       const response = await get(req);
