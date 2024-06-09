@@ -9,6 +9,7 @@ import {
   NotificationInstance,
   NotificationPlacement,
 } from "antd/es/notification/interface";
+import axios from "axios";
 
 type TProps = {
   isOpen: boolean;
@@ -16,7 +17,7 @@ type TProps = {
   api: NotificationInstance;
 };
 
-export const CreateModal = ({
+export const CreateAccountModal = ({
   isOpen,
   setIsCreateModalOpen,
   api,
@@ -30,6 +31,7 @@ export const CreateModal = ({
   };
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage] = useState("");
   const postMutation = useMutation(createAccount);
 
   const handleSubmit = () => {
@@ -43,7 +45,17 @@ export const CreateModal = ({
         setIsCreateModalOpen(false);
       },
       onError: (error) => {
-        console.error("Failed to post article:", error);
+        if (axios.isAxiosError(error)) {
+          // Axiosエラーであるかを確認
+          console.error("Failed to create account:", error);
+          if (error.response && error.response.data) {
+            setErrMessage(error.response.data);
+          } else {
+            setErrMessage("予期せぬエラーが発生しました");
+          }
+        } else {
+          console.error("Non-Axios error occurred:", error);
+        }
       },
     });
   };
@@ -119,6 +131,7 @@ export const CreateModal = ({
           />
         </StyledFormItem>
         <StyledButton htmlType="submit">新規作成</StyledButton>
+        <StyledErrorText>{errMessage}</StyledErrorText>
       </StyledForm>
     </Modal>
   );
@@ -138,4 +151,9 @@ const StyledFormItem = styled(FormItem)`
 const StyledButton = styled(Button)`
   width: 100px;
   margin: 0 auto;
+`;
+
+const StyledErrorText = styled.div`
+  text-align: center;
+  color: red;
 `;

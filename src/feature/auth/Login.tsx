@@ -7,7 +7,7 @@ import { login } from "./api/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "./slice/authSlice";
 import { styled } from "styled-components";
-import { CreateModal } from "./CreateModal";
+import { CreateAccountModal } from "./CreateAccountModal";
 
 type TProps = {
   onLoginSuccess: () => void;
@@ -102,7 +102,7 @@ export const Login = ({ onLoginSuccess }: TProps): React.JSX.Element => {
         {error && <StyledError>{error}</StyledError>}
       </Modal>
       {isCreateModalOpen && (
-        <CreateModal
+        <CreateAccountModal
           isOpen={isCreateModalOpen}
           setIsCreateModalOpen={setIsCreateModalOpen}
           api={api}
